@@ -1,0 +1,25 @@
+#!/bin/sh
+# Türkçe commit mesajı zorunluluğu — İngilizce ve conventional commit engellenir.
+
+commit_msg_file="$1"
+first_line=$(head -n 1 "$commit_msg_file" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+
+if [ -z "$first_line" ]; then
+  exit 0
+fi
+
+# Conventional commit: feat:, fix(scope): vb.
+if printf '%s\n' "$first_line" | grep -qiE '^(feat|fix|chore|docs|refactor|style|test|perf|build|ci|revert)(\([^)]+\))?:'; then
+  echo "HATA: Conventional commit (feat:, fix: vb.) kullanilamaz." >&2
+  echo "Ornek: Gradle ve bagimliliklar guncellendi" >&2
+  exit 1
+fi
+
+# Yaygin Ingilizce basliklar
+if printf '%s\n' "$first_line" | grep -qiE '^(Update|Upgrade|Add|Fix|Refactor|Remove|Delete|Implement|Improve|Initial commit|Bump|Migrate|Rename|Create|Set up|Setup)'; then
+  echo "HATA: Commit basligi Turkce olmali." >&2
+  echo "Ornek: Kilo giris formuna tarih secici eklendi" >&2
+  exit 1
+fi
+
+exit 0

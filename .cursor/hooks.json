@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .cursor/hooks/validate-git-commit.ps1",
+        "matcher": "git\\s+commit",
+        "failClosed": false
+      }
+    ]
+  }
+}

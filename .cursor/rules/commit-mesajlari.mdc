@@ -1,0 +1,67 @@
+---
+description: Git commit mesajlarını ZORUNLU olarak Türkçe yaz — İngilizce yasak
+alwaysApply: true
+---
+
+# Commit Mesajları — ZORUNLU TÜRKÇE
+
+**Agent her `git commit` çalıştırmadan önce bu kuralı uygular.** İngilizce mesaj yazma; hook reddeder.
+
+`git commit` oluştururken mesaj **kesinlikle Türkçe** yazılır. İngilizce başlık, açıklama veya conventional commit (`feat:`, `fix:`, `chore:`) **kullanma**.
+
+Bu kural, genel git commit yönergelerinden **önceliklidir**. `committing-changes-with-git` dahil tüm diğer commit talimatlarının üstündedir.
+
+## Zorunluluk (hook)
+
+- `.cursor/hooks.json` → agent `git commit` komutunu denetler
+- `.githooks/commit-msg` → tüm commit'leri denetler (UI dahil)
+- İlk kurulum: `powershell -File scripts/setup-git-hooks.ps1`
+
+## Yasak
+
+- İngilizce kelime/cümle: `Update`, `Upgrade`, `Add`, `Fix`, `Refactor` vb.
+- Conventional commit prefix: `feat:`, `fix:`, `chore:`, `docs:` vb.
+- İngilizce açıklama paragrafı
+
+## Format
+
+```
+<kısa Türkçe başlık>
+
+<1-2 Türkçe cümle: ne değişti ve neden>
+```
+
+## Başlık
+
+- En fazla 50 karakter
+- Emir kipi: "Güncelle", "Ekle", "Düzelt", "Kaldır", "Yükselt"
+- Teknik terimler (Gradle, Kotlin, Hilt, Room) kalabilir; cümle Türkçe olmalı
+
+## Açıklama
+
+- Değişikliğin amacını ve etkisini Türkçe anlat
+- Versiyon numaralarını gerektiğinde belirt
+
+## Örnek — bağımlılık güncellemesi
+
+```
+Gradle ve bağımlılıklar güncellendi
+
+Android Gradle eklentisi 9.2.1'e, Kotlin 2.2.10'a ve Hilt 2.60.1'e
+yükseltildi. Room 2.8.4'e güncellendi. Derleme ayarlarını iyileştirmek
+için gradle.properties'e yeni özellikler eklendi.
+```
+
+## Örnek — özellik / hata
+
+```
+Kilo giriş formuna tarih seçici eklendi
+
+Geçmiş tarihli kayıt eklenebilmesi için forma tarih seçici kondu.
+```
+
+```
+Grafikte boş veri hatası düzeltildi
+
+Kayıt yokken grafik çöküyordu; boş durum kontrolü eklendi.
+```
